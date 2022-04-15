@@ -14,20 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.db import router
 from django.urls import path, include
-# import views from todo
-from todo import views
-# import routers from the REST framework
-# it is necessary for routing
 from rest_framework import routers
+from adDatabase import views
 
 router = routers.DefaultRouter()
-router.register('tasks', views.TodoView, 'task')
+router.register('ad', views.adView, 'ad')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # add another path to the url patterns
-    # when you visit the localhost:8000/api
-    # you should be routed to the django Rest framework
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
 ]
