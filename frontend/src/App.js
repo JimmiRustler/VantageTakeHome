@@ -3,7 +3,6 @@ import { Button } from "reactstrap";
 import axios from "axios";
 
 class App extends Component {
-  // add a constructor to take props
   constructor(props) {
     super(props);
     this.state = {
@@ -15,32 +14,41 @@ class App extends Component {
       URL:"",
     };
   }
-//Working on learning adChange events
+
+  //Working on learning adChange events
   handleAdChange = (e) => {
     this.setState({image: `./Images/${e.target.value}`, imgHash: Date.now()})
   }
 
-  adSave(currentInfo){
-    console.log()
-    axios
-      .post("/api/ad/",this.state)
-      .then()
-      .catch((err) => console.log(err))
+  //Saves required information and sends it via axios to backend
+  adSave = () =>{
+    axios.post('http://localhost:8000/api/ad/', {
+      "id": "",
+      "image": this.state.image,
+      "adInfo": this.state.adInfo,
+      "adTitle": this.state.adTitle,
+      "URL": this.state.URL,
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((err) => {
+      console.log(err)
+    });
   }
 
-  setAdInfo= (e) =>{
+  //Sets info from textboxes as the text is typed
+  setAdInfo = (e) => {
     this.setState({adInfo: e.target.value})
   }
-  setAdTitle= (e) =>{
+  setAdTitle = (e) => {
     this.setState({adTitle: e.target.value})
   }
-  setAdURL= (e) =>{
+  setAdURL = (e) => {
     this.setState({URL: e.target.value})
   }
 
-
   //Webpage Code:
-
   //Card Rendered to give the Adpreview its own box and space. Split into two section with the text area
   //having a title, ad blurb and URL entry with an image to the left.
   //Below dropdown added and working on adding hard coded values to use as an image selector as well as update the image when chosen
@@ -80,7 +88,7 @@ class App extends Component {
             </form>
         </div>
         <div class = 'save'>
-          <Button onClick={()=> this.adSave()}>Save</Button>{' '}
+          <Button onClick={()=> this.adSave()}>Save</Button>
         </div>  
       </div>
       );

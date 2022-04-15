@@ -1,7 +1,7 @@
 from unittest.util import _MAX_LENGTH
 from django.db import models
 
-# Create your models here.
+# Basic ad model to store 1 image, title, info and a URL
 class ad(models.Model):
     image = models.CharField(max_length=200)
     URL = models.CharField(max_length=50)
