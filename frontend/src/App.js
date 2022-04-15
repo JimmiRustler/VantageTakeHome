@@ -1,23 +1,54 @@
 import React, { Component } from "react";
 import { Button } from "reactstrap";
+import axios from "axios";
 
 class App extends Component {
-  // add a constructor to take props
   constructor(props) {
     super(props);
     this.state = {
-      imgName: 'Woman.jpg',
-      imgSrc: `./Images/Woman.jpg`,
+      imageDefault: 'Woman.jpg',
+      image: `./Images/Woman.jpg`,
       imgHash: Date.now(),
+      adInfo:"",
+      adTitle:"",
+      URL:"",
     };
   }
-//Working on learning adChange events
+
+  //Working on learning adChange events
   handleAdChange = (e) => {
-    this.setState({imgSrc: `./Images/${e.target.value}`, imgHash: Date.now()})
+    this.setState({image: `./Images/${e.target.value}`, imgHash: Date.now()})
+  }
+
+  //Saves required information and sends it via axios to backend
+  adSave = () =>{
+    axios.post('http://localhost:8000/api/ad/', {
+      "id": "",
+      "image": this.state.image,
+      "adInfo": this.state.adInfo,
+      "adTitle": this.state.adTitle,
+      "URL": this.state.URL,
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+  }
+
+  //Sets info from textboxes as the text is typed
+  setAdInfo = (e) => {
+    this.setState({adInfo: e.target.value})
+  }
+  setAdTitle = (e) => {
+    this.setState({adTitle: e.target.value})
+  }
+  setAdURL = (e) => {
+    this.setState({URL: e.target.value})
   }
 
   //Webpage Code:
-
   //Card Rendered to give the Adpreview its own box and space. Split into two section with the text area
   //having a title, ad blurb and URL entry with an image to the left.
   //Below dropdown added and working on adding hard coded values to use as an image selector as well as update the image when chosen
@@ -46,18 +77,18 @@ class App extends Component {
           </div>
 
           <div>
-            <form class='adFields' onSubmit={this.handleSubmit}>
-              <input name="adName"placeholder ="Ad Title" type="text"/>
+            <form class='adFields'>
+              <input onChange={(e) => this.setAdTitle(e)} name="adName"placeholder ="Ad Title" type="text"/>
             </form>
-            <form class='adFields' onSubmit={this.handleSubmit}>
-              <input name="adInfo" placeholder ="Ad Info"type="text"/>
+            <form class='adFields'>
+              <input onChange={(e) => this.setAdInfo(e)} name="adInfo" placeholder ="Ad Info"type="text"/>
             </form>
-            <form class='adFields' onSubmit={this.handleSubmit}>
-              <input name="adURL" placeholder ="Web URL" type="text"/>
+            <form class='adFields'>
+              <input onChange={(e) => this.setAdURL(e)} name="adURL" placeholder ="Web URL" type="text"/>
             </form>
         </div>
         <div class = 'save'>
-          <Button>Save</Button>{' '}
+          <Button onClick={()=> this.adSave()}>Save</Button>
         </div>  
       </div>
       );
