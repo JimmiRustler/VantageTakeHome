@@ -17,7 +17,7 @@ class App extends Component {
 
   //Working on learning adChange events
   handleAdChange = (e) => {
-    this.setState({image: `./Images/${e.target.value}`, imgHash: Date.now()})
+    this.setState({image: `./Images/${e.state}`()})
   }
 
   //Saves required information and sends it via axios to backend
@@ -55,7 +55,6 @@ class App extends Component {
   //Three Text Fields allowing the change of the Ad Title, Info and URL
   //Save button to save preview info to backend.
   render() {
-    console.log(this.state)
       return (
         <div>
           <div class='CardBody parent'>
@@ -63,8 +62,9 @@ class App extends Component {
                 <img src={require(`./Images/Man.jpg`)} width="200" height="170"></img>
               </div>
               <div class='child'>
-                <h4><b>John Doe</b></h4>
-                <p>Architect & Engineer</p>
+                <h1>{this.state.adTitle}</h1>
+                <p>{this.state.adInfo}</p>
+                <p>{this.state.URL}</p>
               </div>
           </div>
 
@@ -81,14 +81,14 @@ class App extends Component {
               <input onChange={(e) => this.setAdTitle(e)} name="adName"placeholder ="Ad Title" type="text"/>
             </form>
             <form class='adFields'>
-              <input onChange={(e) => this.setAdInfo(e)} name="adInfo" placeholder ="Ad Info"type="text"/>
+              <input onChange={(e) => this.setAdInfo(e)} name="adInfo" placeholder ="Ad Info" type="text"/>
             </form>
             <form class='adFields'>
               <input onChange={(e) => this.setAdURL(e)} name="adURL" placeholder ="Web URL" type="text"/>
             </form>
         </div>
         <div class = 'save'>
-          <Button onClick={()=> this.adSave()}>Save</Button>
+          <Button onClick={() => this.adSave()}>Save</Button>
         </div>  
       </div>
       );
