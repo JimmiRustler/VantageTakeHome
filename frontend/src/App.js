@@ -6,26 +6,29 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      adImage: 'Woman.jpg',
-      adInfo:"",
-      adTitle:"",
-      URL:"",
+      adImage: "",
+      adInfo: "",
+      adTitle: "",
+      URL: "",
     };
   }
 
-  //Working on learning adChange events
+  //hanles changing the state of image object as user makes selection
   handleAdChange = (e) => {
     this.setState({adImage: e.target.value})
-
   }
 
-  
+  preLoad = async () => {
+    const response = await axios.get('http://localhost:8000/api/ad/')
+    let data = response.data
+    console.log(data)
+  }
 
   //Saves required information and sends it via axios to backend
   adSave = () =>{
-    axios.post('http://localhost:8000/api/ad/', {
+    axios.post('//http://localhost:8000/api/ad/', {
       "id": "",
-      "image": this.state.image,
+      "image": this.state.adImage,
       "adInfo": this.state.adInfo,
       "adTitle": this.state.adTitle,
       "URL": this.state.URL,
@@ -89,7 +92,7 @@ class App extends Component {
             </form>
         </div>
         <div class = 'save'>
-          <Button onClick={() => this.adSave()}>Save</Button>
+          <Button onClick={() => this.preLoad()}>Save</Button>
         </div>  
       </div>
       );
