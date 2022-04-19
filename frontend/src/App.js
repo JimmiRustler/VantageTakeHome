@@ -2,30 +2,55 @@ import React, { Component } from "react";
 import { Button } from "reactstrap";
 import axios from "axios";
 
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      adImage: 'Woman.jpg',
-      adInfo:"",
-      adTitle:"",
-      URL:"",
+      adImage: "",
+      adInfo: "",
+      adTitle: "",
+      URL: "",
     };
   }
 
-  //Working on learning adChange events
+  //hanles changing the state of image object as user makes selection
   handleAdChange = (e) => {
     this.setState({adImage: e.target.value})
-
   }
 
-  
+  /*
+  * Onmount runs directly after inital rendering and
+  * sends and axios get request against. That request is then
+  * filtered to select the entry at the end of the array
+  * which should be the most recent sved entry and loads that into
+  * the ad preview
+  */
+  componentDidMount(){
+    axios.get('http://localhost:8000/api/ad/')
+    .then((response)=> {
+      let loadData = response.data
+      const selector = (Object.keys(loadData).length - 1);
+      console.log(selector)
+        this.setState(
+          {
+            adImage: loadData[selector].image,
+            adInfo: loadData[selector].adInfo,
+            adTitle: loadData[selector].adTitle,
+            URL: loadData[selector].URL,
+          }
+        )
+    })
+  }
 
-  //Saves required information and sends it via axios to backend
+  /*
+  * Saves the current ad choices to backend via axios
+  * based on the current state of the text fields and ad choice
+  */
   adSave = () =>{
     axios.post('http://localhost:8000/api/ad/', {
       "id": "",
-      "image": this.state.image,
+      "image": this.state.adImage,
       "adInfo": this.state.adInfo,
       "adTitle": this.state.adTitle,
       "URL": this.state.URL,
@@ -38,7 +63,9 @@ class App extends Component {
     });
   }
 
-  //Sets info from textboxes as the text is typed
+  /*
+  *Sets each part of the ad text from textboxes as it is typed using state changes
+  */
   setAdInfo = (e) => {
     this.setState({adInfo: e.target.value})
   }
