@@ -6,9 +6,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageDefault: 'Woman.jpg',
-      image: `./Images/Woman.jpg`,
-      imgHash: Date.now(),
+      adImage: 'Woman.jpg',
       adInfo:"",
       adTitle:"",
       URL:"",
@@ -17,8 +15,10 @@ class App extends Component {
 
   //Working on learning adChange events
   handleAdChange = (e) => {
-    this.setState({image: `./Images/${e.target.value}`, imgHash: Date.now()})
+    this.setState({adImage: e.target.value})
   }
+
+  
 
   //Saves required information and sends it via axios to backend
   adSave = () =>{
@@ -55,16 +55,16 @@ class App extends Component {
   //Three Text Fields allowing the change of the Ad Title, Info and URL
   //Save button to save preview info to backend.
   render() {
-    console.log(this.state)
       return (
         <div>
           <div class='CardBody parent'>
               <div class='image'>
-                <img src={require(`./Images/Man.jpg`)} width="200" height="170"></img>
+                <img src={this.state.adImage} alt="picture here" width="200" height="170"></img>
               </div>
               <div class='child'>
-                <h4><b>John Doe</b></h4>
-                <p>Architect & Engineer</p>
+                <h4><b>{this.state.adTitle}</b></h4>
+                <p>{this.state.adInfo}</p>
+                <p>{this.state.URL}</p>
               </div>
           </div>
 
@@ -78,7 +78,7 @@ class App extends Component {
 
           <div>
             <form class='adFields'>
-              <input onChange={(e) => this.setAdTitle(e)} name="adName"placeholder ="Ad Title" type="text"/>
+              <input onChange={(e) => this.setAdTitle(e)} name="adName" placeholder ="Ad Title" type="text"/>
             </form>
             <form class='adFields'>
               <input onChange={(e) => this.setAdInfo(e)} name="adInfo" placeholder ="Ad Info"type="text"/>
