@@ -16,6 +16,7 @@ class App extends Component {
   //Working on learning adChange events
   handleAdChange = (e) => {
     this.setState({adImage: e.target.value})
+
   }
 
   
@@ -81,14 +82,14 @@ class App extends Component {
               <input onChange={(e) => this.setAdTitle(e)} name="adName" placeholder ="Ad Title" type="text"/>
             </form>
             <form class='adFields'>
-              <input onChange={(e) => this.setAdInfo(e)} name="adInfo" placeholder ="Ad Info"type="text"/>
+              <input onChange={(e) => this.setAdInfo(e)} name="adInfo" placeholder ="Ad Info" type="text"/>
             </form>
             <form class='adFields'>
               <input onChange={(e) => this.setAdURL(e)} name="adURL" placeholder ="Web URL" type="text"/>
             </form>
         </div>
         <div class = 'save'>
-          <Button onClick={()=> this.adSave()}>Save</Button>
+          <Button onClick={() => this.adSave()}>Save</Button>
         </div>  
       </div>
       );
