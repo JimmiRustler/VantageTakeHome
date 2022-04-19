@@ -14,7 +14,7 @@ class App extends Component {
     };
   }
 
-  //hanles changing the state of image object as user makes selection
+  //handles changing the state of image object as user makes selection
   handleAdChange = (e) => {
     this.setState({adImage: e.target.value})
   }
