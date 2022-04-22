@@ -1,6 +1,4 @@
-from dataclasses import fields
 from django.test import TestCase
-from adDatabase.models import ad
 
 class EntryModelTest(TestCase):
     fixtures = ['tests/fixtures/ad.json']
@@ -17,14 +15,3 @@ class EntryModelTest(TestCase):
             'adInfo':'this is test1',
         })
         self.assertEqual(response.status_code, 201)
-
-    def test_get_function(self):
-        response = self.client.get("/api/ad/", {'id':'1'})
-        print(response.json)
-        
-        
-
-
-  
-        
-        

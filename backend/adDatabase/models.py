@@ -8,4 +8,4 @@ class ad(models.Model):
     adInfo = models.CharField(max_length=200)
 
     def _str_(self):
-        return self.title
+        return self.adTitle
