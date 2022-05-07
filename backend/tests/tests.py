@@ -17,11 +17,12 @@ class EntryModelTest(TestCase):
             'adInfo':'this is test1',
         })
         self.assertEqual(response.status_code, 201)
+        self.assertIn(b'www.test1.com', response.content)
 
     def test_get_function(self):
         response = self.client.get("/api/ad/", {'id':'1'})
-        print(response.json)
-        
+        self.assertIn(b'Woman.jpg', response.content)
+        self.assertIn(b'www.walmart.com', response.content)
         
 
 
